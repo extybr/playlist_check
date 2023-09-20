@@ -10,7 +10,7 @@ def check(filename: str) -> None:
             # print(count, line)
             out += line
             # if line.startswith('http'):
-            if line.startswith('http') and '.m3u' in line:
+            if line.startswith('http') and '.m3u8' in line:
                 try:
                     print(line.strip())
                     response: httpx.Response = httpx.get(line.strip(),

@@ -5,7 +5,7 @@ from sort_playlist import main as playlist_sort
 HOST = 'https://kinoleha.net'
 
 
-def get_html(_url):
+def get_html(_url: str):
     # HEADERS = {'Host': HOST[8:], 'User-Agent': 'Safari'}
     result = httpx.get(_url)
     return result
@@ -27,9 +27,9 @@ def get_pages(genre: str) -> int:
     return 1
 
 
-def get_content(html, file) -> None:
-    file = file.replace('/', '-') + '.m3u'
-    with open(file, 'a', encoding='utf-8') as file:
+def get_content(html: str, filename: str) -> None:
+    filename = filename.replace('/', '-') + '.m3u'
+    with open(filename, 'a', encoding='utf-8') as file:
         soup = BeautifulSoup(html, 'html.parser')
         items = soup.find_all('div', class_='centermid')
         for item in items:
