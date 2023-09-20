@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-def get_dictionary(_filename):
+def get_dictionary(_filename: str) -> dict:
     dictionary = dict()
     with open(_filename, 'r', encoding='utf-8') as text:
         txt = text.readlines()
@@ -17,7 +17,7 @@ def get_dictionary(_filename):
     return dictionary
 
 
-def sorted_and_write(_file):
+def sorted_and_write(_file: str) -> None:
     new_filename = f'sorted-{_file}'
     new_dictionary = dict()
     _dictionary = get_dictionary(_file)
@@ -29,7 +29,7 @@ def sorted_and_write(_file):
             text.write(value[0] + value[1])
 
 
-def main():
+def main() -> None:
     for file in Path().iterdir():
         if str(file).endswith('m3u'):
             print(file)

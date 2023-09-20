@@ -1,33 +1,34 @@
-import requests
+import httpx
 from threading import Thread
 
 
-def func(filename):
+def check(filename: str) -> None:
     out = ''
-    with open(filename, 'r', encoding='utf-8') as ip:
-        k = 1
-        for i in ip.readlines():
-            # print(k, i)
-            out += i
-            # if i.startswith('http'):
-            if i.startswith('http') and '.m3u' in i:
+    with open(filename, 'r', encoding='utf-8') as playlist:
+        count = 1
+        for line in playlist.readlines():
+            # print(count, line)
+            out += line
+            # if line.startswith('http'):
+            if line.startswith('http') and '.m3u' in line:
                 try:
-                    print(i.strip())
-                    r: requests.Response = requests.get(i.strip(), timeout=3.0)
-                    print(k, r)
-                    if r.status_code == 200:
+                    print(line.strip())
+                    response: httpx.Response = httpx.get(line.strip(),
+                                                         timeout=3.0, verify=False)
+                    print(count, response)
+                    if response.status_code == 200:
                         with open(f'new_{filename}', 'a', encoding='utf-8') as new:
                             new.write(out)
-                except Exception as er:
-                    print(er)
+                except Exception as error:
+                    print(error)
                 out = ''
-            k += 1
+            count += 1
 
 
 if __name__ == '__main__':
-    file = 'iptvchannels.m3u'
+    file = 'iptvlist.m3u'
     threads = []
-    thread = Thread(target=func, args=(file,))
+    thread = Thread(target=check, args=(file,))
     thread.start()
     threads.append(thread)
     for thread in threads:

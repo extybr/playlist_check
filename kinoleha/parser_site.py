@@ -1,4 +1,4 @@
-import requests
+import httpx
 from bs4 import BeautifulSoup
 from sort_playlist import main as playlist_sort
 
@@ -7,7 +7,7 @@ HOST = 'https://kinoleha.net'
 
 def get_html(_url):
     # HEADERS = {'Host': HOST[8:], 'User-Agent': 'Safari'}
-    result = requests.get(_url)
+    result = httpx.get(_url)
     return result
 
 
