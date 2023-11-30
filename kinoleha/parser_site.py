@@ -1,6 +1,6 @@
 import httpx
 from bs4 import BeautifulSoup
-from sort_playlist import main as playlist_sort
+from sort_playlist.sort_playlist import main as playlist_sort, Path
 
 HOST = 'https://kinoleha.net'
 
@@ -54,4 +54,5 @@ def main(_categories: tuple) -> None:
             url = f'{HOST}/{category}/str{page}'
             htm = get_html(url)
             get_content(htm.text, category)
-    playlist_sort()
+    current_directory = Path().cwd().absolute()
+    playlist_sort(current_directory)
