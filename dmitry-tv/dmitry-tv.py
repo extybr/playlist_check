@@ -1,8 +1,8 @@
 import httpx
-from sort_playlist.sort_playlist import main as sort, Path
+from sort.sort_playlist import main as sort, Path
 
 
-def online():
+def online() -> None:
     film = 'http://dmi3y-tv.ru/iptv/film.m3u'
     mult = 'http://dmi3y-tv.ru/iptv/multfilm.m3u'
     group = (film, mult)
@@ -24,7 +24,7 @@ def online():
             print(line)
 
 
-def local():
+def local() -> None:
     film = 'film.m3u'
     mult = 'multfilm.m3u'
     group = (film, mult)

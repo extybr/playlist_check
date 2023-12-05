@@ -1,10 +1,10 @@
 import asyncio
 from aiofiles import open as aio_open
 from aiohttp import ClientSession
-from sort_playlist.sort_playlist import main as sort, Path
+from sort.sort_playlist import main as sort, Path
 
 
-def read_file(file):
+def read_file(file: str) -> set:
     base = set()
     with open(file, 'r', encoding='utf-8') as pl:
         for line in pl.readlines():
@@ -17,12 +17,12 @@ def read_file(file):
     return base
 
 
-async def write_file(string):
+async def write_file(string: str) -> None:
     async with aio_open('new_file.m3u', 'a', encoding='utf-8') as file:
         await file.write(string)
 
 
-async def fetch(session, url):
+async def fetch(session: ClientSession, url: tuple) -> None:
     result = url[0]
     try:
         async with session.get(url[1]) as response:
@@ -35,7 +35,7 @@ async def fetch(session, url):
             await write_file(result)
 
 
-async def main(urls):
+async def main(urls: set) -> None:
     async with ClientSession() as session:
         for url in urls:
             await fetch(session, url)

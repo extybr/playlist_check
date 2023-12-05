@@ -6,7 +6,7 @@ PL = dict()
 playlist = []
 
 
-async def fetch(session, url):
+async def fetch(session: ClientSession, url: str):
     try:
         async with session.get(url, timeout=3) as response:
             if response.status == 200:
@@ -20,7 +20,7 @@ async def fetch(session, url):
         pass
 
 
-async def gen_dict():
+async def gen_dict() -> None:
     file = 'playlist.m3u'
     async with open(file, 'r', encoding='utf-8') as play_list:
         play = await play_list.readlines()
@@ -29,7 +29,7 @@ async def gen_dict():
                 PL[number] = line
 
 
-async def main():
+async def main() -> None:
     async with ClientSession() as session:
         urls = []
         task3 = asyncio.create_task(gen_dict())
@@ -43,7 +43,7 @@ async def main():
             print(_)
 
 
-async def make_new_playlist():
+async def make_new_playlist() -> None:
     global playlist
     async with open('new_playlist.m3u', 'a', encoding='utf-8') as new_playlist:
         for i in playlist:

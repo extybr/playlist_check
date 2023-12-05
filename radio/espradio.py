@@ -2,7 +2,7 @@ from json import loads
 from httpx import get
 
 
-def local_file():
+def local_file() -> None:
     with open('radio_stream_list.json', 'r', encoding='utf-8') as js:
         with open('radio_stream_list.m3u', 'a', encoding='utf-8') as playlist:
             playlist.write('#EXTM3U\n')
@@ -12,7 +12,7 @@ def local_file():
                 playlist.writelines(ext)
 
 
-def online_file():
+def online_file() -> None:
     js = get('https://espradio.ru/stream_list.json').text
     pl = js.split('\r\n')
     with open('radio_stream_list.m3u', 'a', encoding='utf-8') as playlist:

@@ -1,6 +1,6 @@
 import httpx
 from bs4 import BeautifulSoup
-from sort_playlist.sort_playlist import main as playlist_sort, Path
+from sort.sort_playlist import main as playlist_sort, Path
 
 HOST = 'https://kinoleha.net'
 
