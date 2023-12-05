@@ -1,5 +1,5 @@
 import httpx
-from sort.sort_playlist import main as sort, Path
+from sort.sort_playlist import main as playlist_sort, Path
 
 
 def online() -> None:
@@ -46,4 +46,4 @@ def local() -> None:
 local()
 # online()
 current_directory = Path().cwd().absolute()
-sort(current_directory)
+playlist_sort(current_directory)
