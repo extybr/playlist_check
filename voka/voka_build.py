@@ -31,4 +31,3 @@ with open('voka.m3u', 'a', encoding='utf-8') as playlist:
         if value in new_set:
             playlist.write(new[key-1] + new[key])
             new_set.remove(value)
-

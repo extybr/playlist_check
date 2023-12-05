@@ -8,7 +8,8 @@ def local_file():
             playlist.write('#EXTM3U\n')
             for line in js.readlines():
                 radio = loads(line)
-                playlist.writelines(f"#EXTINF:-1,{radio['name']}\n{radio['url']}\n")
+                ext = f"#EXTINF:-1,{radio['name']}\n{radio['url']}\n"
+                playlist.writelines(ext)
 
 
 def online_file():
@@ -18,7 +19,8 @@ def online_file():
         playlist.write('#EXTM3U\n')
         for item in pl:
             radio = loads(item)
-            playlist.writelines(f"#EXTINF:-1,{radio['name']}\n{radio['url']}\n")
+            ext = f"#EXTINF:-1,{radio['name']}\n{radio['url']}\n"
+            playlist.writelines(ext)
 
 
 online_file()

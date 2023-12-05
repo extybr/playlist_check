@@ -34,7 +34,8 @@ def local():
             for line in pl:
                 print(line)
                 if line.startswith('http'):
-                    result += httpx.get(line.strip()).headers.get('location') + '\n'
+                    result += httpx.get(
+                        line.strip()).headers.get('location') + '\n'
                     continue
                 result += line
         with open(f'new_{i}.m3u', 'a', encoding='utf-8') as playlist:
