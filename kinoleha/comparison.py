@@ -4,7 +4,7 @@ from pathlib import Path
 """ 
 old_file = 'old_file.m3u'
 new_file = 'new_file.m3u'
-#> python comparison.py old_file.m3u new_file.m3u 
+# > python comparison.py old_file.m3u new_file.m3u 
 """
 
 old_file = argv[1]
