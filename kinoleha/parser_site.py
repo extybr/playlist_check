@@ -5,7 +5,7 @@ from sort.sort_playlist import main as playlist_sort, Path
 HOST = 'https://kinoleha.net'
 
 
-def get_html(_url: str):
+def get_html(_url: str) -> httpx.Response:
     # HEADERS = {'Host': HOST[8:], 'User-Agent': 'Safari'}
     result = httpx.get(_url)
     return result
