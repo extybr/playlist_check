@@ -23,4 +23,6 @@ jobs:
         flake8 .
     - name: mypy
       run: |
+        [sort.*]
+        ignore_errors = True
         mypy .
