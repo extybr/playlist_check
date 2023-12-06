@@ -6,7 +6,7 @@ PL = dict()
 playlist = []
 
 
-async def fetch(session: ClientSession, url: str):
+async def fetch(session: ClientSession, url: str) -> str:
     try:
         async with session.get(url, timeout=3) as response:
             if response.status == 200:

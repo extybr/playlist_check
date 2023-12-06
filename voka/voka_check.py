@@ -1,7 +1,7 @@
 import httpx
 
 
-def check(link) -> None:
+def check(link: str) -> None:
     try:
         response: httpx.Response = httpx.get(link, timeout=2.0, verify=False)
         print(response)

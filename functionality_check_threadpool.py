@@ -5,7 +5,7 @@ from multiprocessing.pool import ThreadPool
 PL = dict()
 
 
-def check(_key) -> None:
+def check(_key: int) -> None:
     _value = PL[_key]
     print(_key)
     try:
