@@ -1,4 +1,4 @@
-name: Python application
+name: PEP8
 on:
   push:
     branches: [ main ]
