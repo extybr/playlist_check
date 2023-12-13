@@ -12,6 +12,6 @@ def check(link: str) -> None:
         print(error)
 
 
-for i in range(1, 8000):
-    string = f'https://cdn-cache01.voka.tv:443/live/{i}.m3u8'
+for number in range(1, 8000):
+    string = f'https://cdn-cache01.voka.tv:443/live/{number}.m3u8'
     check(string)

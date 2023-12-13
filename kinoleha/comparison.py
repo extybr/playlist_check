@@ -1,4 +1,4 @@
-from sys import argv, getsizeof
+import sys
 from pathlib import Path
 
 """
@@ -7,8 +7,8 @@ new_file = 'new_file.m3u'
 # > python comparison.py old_file.m3u new_file.m3u
 """
 
-old_file = argv[1]
-new_file = argv[2]
+old_file = sys.argv[1]
+new_file = sys.argv[2]
 error = {old_file: 'первого файла', new_file: 'второго файла'}
 
 for file in (old_file, new_file):
@@ -23,6 +23,6 @@ else:
             if line not in old:
                 print(line.strip())
 
-    if getsizeof(old_file) > getsizeof(new_file):
+    if sys.getsizeof(old_file) > sys.getsizeof(new_file):
         print('\33[41m\33[1mРазмер первого файла больше второго, возможно вы '
               'ошиблись с очередностью файлов.\33[0m')
