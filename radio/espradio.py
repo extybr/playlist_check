@@ -1,5 +1,5 @@
-import json
-import httpx
+from json import loads
+from httpx import get
 
 
 def local_file() -> None:
@@ -7,18 +7,18 @@ def local_file() -> None:
         with open('radio_stream_list.m3u', 'a', encoding='utf-8') as playlist:
             playlist.write('#EXTM3U\n')
             for line in js.readlines():
-                radio = json.loads(line)
+                radio = loads(line)
                 ext = f"#EXTINF:-1,{radio['name']}\n{radio['url']}\n"
                 playlist.writelines(ext)
 
 
 def online_file() -> None:
-    js = httpx.get('https://espradio.ru/stream_list.json').text
+    js = get('https://espradio.ru/stream_list.json').text
     pl = js.split('\r\n')
     with open('radio_stream_list.m3u', 'a', encoding='utf-8') as playlist:
         playlist.write('#EXTM3U\n')
         for item in pl:
-            radio = json.loads(item)
+            radio = loads(item)
             ext = f"#EXTINF:-1,{radio['name']}\n{radio['url']}\n"
             playlist.writelines(ext)
 

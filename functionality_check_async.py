@@ -1,5 +1,5 @@
 import asyncio
-import aiofiles
+from aiofiles import open
 from aiohttp import ClientSession, client_exceptions
 
 PL = dict()
@@ -45,9 +45,7 @@ async def main() -> None:
 
 async def make_new_playlist() -> None:
     global playlist
-    async with aiofiles.open(
-            'new_playlist.m3u', 'a', encoding='utf-8'
-    ) as new_playlist:
+    async with open('new_playlist.m3u', 'a', encoding='utf-8') as new_playlist:
         for i in playlist:
             await new_playlist.write(i + '\n')
 

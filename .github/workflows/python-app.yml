@@ -1,4 +1,4 @@
-name: Python application
+name: PEP8
 on:
   push:
     branches: [ main ]
@@ -15,7 +15,12 @@ jobs:
         python-version: "3.12"
     - name: Install dependencies
       run: |
-        pip install flake8
+        python -m pip install --upgrade pip
+        pip install flake8 mypy
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: flake8
       run: |
         flake8 .
+    # - name: Run mypy
+    #   run: |
+    #     mypy .

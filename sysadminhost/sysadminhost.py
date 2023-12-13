@@ -1,5 +1,5 @@
 import asyncio
-import aiofiles
+from aiofiles import open as aio_open
 from aiohttp import ClientSession
 from sort.sort_playlist import main as sort, Path
 
@@ -18,7 +18,7 @@ def read_file(file: str) -> set:
 
 
 async def write_file(string: str) -> None:
-    async with aiofiles.open('new_file.m3u', 'a', encoding='utf-8') as file:
+    async with aio_open('new_file.m3u', 'a', encoding='utf-8') as file:
         await file.write(string)
 
 
