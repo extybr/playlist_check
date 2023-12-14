@@ -5,3 +5,4 @@ venv/
 build/
 .git
 dist/
+.mypy_cache/

@@ -14,4 +14,5 @@ def get_links(url: str) -> None:
 if __name__ == '__main__':
     url_europe = 'https://redbasset.tech/_api/rest/podcast_rss/apple/7'
     url_radiot = 'https://feeds.feedburner.com/Radio-t'
-    [get_links(link) for link in (url_europe, url_radiot)]
+    for link in (url_europe, url_radiot):
+        get_links(link)

@@ -17,8 +17,8 @@ def get_dictionary(_filename: str) -> dict:
     return dictionary
 
 
-def sorted_and_write(_file: str, _cwd: str) -> None:
-    new_filename_path = Path(_cwd) / f'sorted-{_file}'
+def sorted_and_write(_file: str, _cwd: Path) -> None:
+    new_filename_path = _cwd / f'sorted-{_file}'
     new_dictionary = dict()
     _dictionary = get_dictionary(_file)
     new = sorted(_dictionary)
@@ -30,7 +30,7 @@ def sorted_and_write(_file: str, _cwd: str) -> None:
             text.write(value[0] + value[1])
 
 
-def main(cwd) -> None:
+def main(cwd: Path) -> None:
     for file in Path(cwd).iterdir():
         if str(file.name).endswith('m3u'):
             print(file.name)

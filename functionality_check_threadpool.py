@@ -1,8 +1,9 @@
 import httpx
 from multiprocessing import cpu_count
 from multiprocessing.pool import ThreadPool
+from typing import Dict
 
-PL = dict()
+PL: Dict[int, str] = dict()
 
 
 def check(_key: int) -> None:
