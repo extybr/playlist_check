@@ -2,13 +2,13 @@ import xml.dom.minidom
 import urllib.request
 
 
-def get_links(url):
+def get_links(url: str) -> None:
     """Printing real links from podcast"""
     page = urllib.request.urlopen(url)
     doc = xml.dom.minidom.parse(page)
-    expertise = doc.getElementsByTagName("enclosure")
-    for skill in expertise:
-        print(skill.getAttribute("url"))
+    enclosure = doc.getElementsByTagName("enclosure")
+    for href in enclosure:
+        print(href.getAttribute("url"))
 
 
 if __name__ == '__main__':
