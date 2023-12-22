@@ -7,7 +7,7 @@
 from rss_links import get_links
 from real_link import get_link_file
 from download import complete_tasks
-from pack import *
+from pack import asyncio, urls
 
 
 if __name__ == '__main__':

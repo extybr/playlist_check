@@ -1,5 +1,5 @@
 from typing import Callable
-from pack import *
+from pack import httpx, new_urls
 
 
 def get_link_file(link_file: str) -> Callable or None:

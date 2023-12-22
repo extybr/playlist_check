@@ -1,6 +1,6 @@
 import aiofiles
 import tqdm
-from pack import *
+from pack import httpx, asyncio, new_urls
 
 
 async def download_file(link_file: str, filename: str, size: int) -> None:

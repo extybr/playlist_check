@@ -2,3 +2,5 @@ httpx
 bs4
 aiohttp
 aiofiles
+asyncio
+tqdm
