@@ -4,6 +4,7 @@
 
 import os
 import sys
+import platform
 import subprocess
 import json
 import httpx
@@ -30,8 +31,11 @@ def get_name_and_url() -> None:
 
 def curl_download(url: str) -> None:
     """Utility: curl. Download a file"""
-    chcp = subprocess.getoutput('chcp').split(' ')[-1]
-    result = subprocess.getoutput(f'curl -v {url}', encoding=chcp).split('\n')
+    system = platform.system()
+    enc = 'utf-8'
+    if system == 'Windows':
+        enc = subprocess.getoutput('chcp').split(' ')[-1]
+    result = subprocess.getoutput(f'curl -v {url}', encoding=enc).split('\n')
     for line in result:
         if 'Location' in line:
             curl_download(line[11:])
