@@ -4,3 +4,4 @@ aiohttp
 aiofiles
 asyncio
 tqdm
+LxmlSoup
