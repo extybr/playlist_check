@@ -44,4 +44,3 @@ if __name__ == "__main__":
         curl_download(my_link)
     else:
         get_name_and_url()
-
