@@ -1,8 +1,8 @@
-#############################
-#                           #
-#    #> python main.py      #
-#                           #
-#############################
+#######################################
+#  Example:                           #
+# > python main.py                    #
+#  download: -> file_download = True  #
+#######################################
 
 from rss_links import get_links
 from real_link import get_link_file
@@ -11,7 +11,7 @@ from pack import asyncio, urls
 
 
 if __name__ == '__main__':
-    file_download = False
+    file_download = True
     url_europe = 'https://redbasset.tech/_api/rest/podcast_rss/apple/7'
     url_radiot = 'https://feeds.feedburner.com/Radio-t'
     url_tricky_python = 'https://feed.podbean.com/learnpython/feed.xml'

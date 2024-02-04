@@ -1,7 +1,8 @@
-###########################################################
-# > python main.py https://files.redbasset.tech/file.mp3  #
-# > python main.py https://mcdn.podbean.com/file.mp3      #
-###########################################################
+########################################################################
+#  Example:                                                            #
+# > python redbasset_podbean.py https://files.redbasset.tech/file.mp3  #
+# > python redbasset_podbean.py https://mcdn.podbean.com/file.mp3      #
+########################################################################
 
 import os
 import sys
@@ -60,16 +61,12 @@ def get_soup(idx: Iterable[str]) -> None:
 
 def curl_download(url: str) -> None:
     """Utility: curl. Download a file"""
-    system = platform.system()
-    enc = 'utf-8'
-    if system == 'Windows':
-        enc = subprocess.getoutput('chcp').split(' ')[-1]
-    result = subprocess.getoutput(
-        f'curl -v {url} 2>&1', encoding=enc).split('\n')
-    for line in result:
-        if 'Location' in line:
-            curl_download(line[11:])
+    headers = httpx.get(url).headers
+    if 'text/html' in headers['content-type']:
+        return curl_download(headers['location'])
     print(url)
+    if not url.endswith('.mp3'):
+        url = url.split('.mp3')[0] + '.mp3'
     os.system(f'curl -O {url}')
 
 
