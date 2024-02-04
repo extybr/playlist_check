@@ -6,8 +6,6 @@
 
 import os
 import sys
-import platform
-import subprocess
 import json
 import httpx
 from LxmlSoup import LxmlSoup
