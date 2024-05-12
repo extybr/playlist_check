@@ -27,6 +27,5 @@ def write_playlist() -> None:
                            f"{link}\n")
 
 
-    
 if __name__ == "__main__":
     write_playlist()
