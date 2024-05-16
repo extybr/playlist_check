@@ -38,7 +38,7 @@ def get_playlist(area: str) -> None:
     pattern_1 = r'<title>.+</title>'
     pattern_2 = r'<video id="video" src="http.+.m3u8"'
     pattern_3 = (r'<a target="_blank" rel="noopener '
-                  'noreferrer" href="http.+.m3u8"')
+                'noreferrer" href="http.+.m3u8"')
 
     with open(file, 'w', encoding='utf-8') as playlist:
         playlist.write('#EXTM3U\n')
@@ -48,7 +48,7 @@ def get_playlist(area: str) -> None:
         name, link = '', ''
 
         code_page = httpx.get(URL + url).text
-        
+
         sample_1 = re.compile(pattern_1)
         title = sample_1.search(code_page)
         if title:
