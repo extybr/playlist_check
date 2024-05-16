@@ -29,6 +29,7 @@ def get_list_link(area: str) -> set:
 def get_playlist(area: str) -> None:
 
     urls = get_list_link(area)
+    file = f'iptv_web_{area}.m3u'
 
     RED = '\033[31m'
     BLUE = '\033[36m'
@@ -36,10 +37,11 @@ def get_playlist(area: str) -> None:
 
     pattern_1 = r'<title>.+</title>'
     pattern_2 = r'<video id="video" src="http.+.m3u8"'
-    pattern_3 = r'<a target="_blank" rel="noopener noreferrer" href="http.+.m3u8"'
+    pattern_3 = (r'<a target="_blank" rel="noopener '
+                  'noreferrer" href="http.+.m3u8"')
 
-    with open(f'iptv_web_{area}.m3u', 'w', encoding='utf-8') as playlist:
-            playlist.write('#EXTM3U\n')
+    with open(file, 'w', encoding='utf-8') as playlist:
+        playlist.write('#EXTM3U\n')
 
     for url in urls:
 
@@ -64,7 +66,7 @@ def get_playlist(area: str) -> None:
 
         if name and link:
             print(f'{RED}{name}{DEFAULT}: {BLUE}{link}{DEFAULT}')
-            with open(f'iptv_web_{area}.m3u', 'a', encoding='utf-8') as playlist:
+            with open(file, 'a', encoding='utf-8') as playlist:
                 playlist.write(f'#EXTINF:-1,{name}\n{link}\n')
 
 
