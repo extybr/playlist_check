@@ -15,23 +15,29 @@ my_link = sys.argv[1] if len(sys.argv) > 1 else 0
 
 
 def get_name_and_url_podbean(soup: LxmlSoup) -> None:
+    red, blue, default = '\033[31m', '\033[36m', '\033[0m'
     links = soup.find_all('script', type='application/ld+json')
     js = json.loads(links[0].text())
 
     for link in js[1:]:
-        print(link.get('name', 0))
-        print(link.get("associatedMedia", 0).get('contentUrl', 0))
+        name = link.get('name', 0)
+        url = link.get("associatedMedia", 0).get('contentUrl', 0)
+        print(f"{red}{name}{default}\n{blue}{url}{default}")
+        red = blue = default = ""
 
 
 def get_name_and_url_redbasset(soup: LxmlSoup) -> None:
+    red, blue, default = '\033[31m', '\033[36m', '\033[0m'
     links = soup.find_all('script', id='__NEXT_DATA__')
     js = json.loads(links[0].text())
     episodes = js.get("props", 0).get(
         "pageProps", 0).get("podcast", 0).get("episodes", 0)
 
     for link in episodes:
-        print(link.get('name', 0))
-        print(link.get('audioFileUrl', 0))
+        name = link.get('name', 0)
+        url = link.get('audioFileUrl', 0)
+        print(f"{red}{name}{default}\n{blue}{url}{default}")
+        red = blue = default = ""
 
 
 def get_soup(idx: Iterable[str]) -> None:
