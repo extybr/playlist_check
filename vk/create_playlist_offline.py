@@ -1,6 +1,7 @@
 ############################################
 # save (Ctrl + S) HTML page to text format #
 # url = https://vk.com/video/lives/music   #
+# playlist for smplayer                    #
 ############################################
 
 red = '\033[31m'
