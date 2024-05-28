@@ -3,9 +3,10 @@
 # example:
 # $> ./tcncountry.sh
 
-red='\033[31m'
 green='\033[32m'
 blue='\033[36m'
+yellow='\033[1;33m'
+violet="\033[35m"
 normal='\033[0m'
 
 # URL страницы канала
@@ -14,10 +15,9 @@ CHANNEL_URL="https://tcncountry.com/tnc-top-20-countdown/"
 # Количество последних видео для получения
 NUM_VIDEOS=5
 
-echo -n "#EXTM3U
+echo "#EXTM3U
 #EXTINF:-1,TCN Live
-https://tcncountry.com/video/tcn-live/
-" > tcncountry.m3u
+https://tcncountry.com/video/tcn-live/" > tcncountry.m3u
 
 # Функция загрузки HTML-страницы
 get_html() {
@@ -39,13 +39,26 @@ get_latest_videos_from_html() {
     fi
 }
 
-# Получение и вывод последних видео
-get_latest_videos_from_html | head -n "${NUM_VIDEOS}" | while IFS='|' read -r title url; do
-    echo -e "${green}${title}${normal}"
+# Получение последних видео
+output=$(get_latest_videos_from_html | head -n "${NUM_VIDEOS}")
+
+# Запись последних видео
+echo "$output" | while IFS='|' read -r title url; do
     echo "#EXTINF:-1,${title}" >> tcncountry.m3u
-    echo -e "${blue}${url}${normal}"
     echo "${url}" >> tcncountry.m3u
-    echo
 done
 
+# Вывод самого последнего видео
+printf "%s" "$output" | sed -n '1p' | while IFS='|' read -r title url; do 
+	echo -e "${yellow}${title}${normal}"
+	echo -e "${violet}${url}${normal}"
+	echo
+done
+
+# Вывод последних видео, начиная с предпоследнего
+echo "$output" | sed -n "2,+${NUM_VIDEOS}p" | while IFS='|' read -r title url; do 
+	echo -e "${green}${title}${normal}"
+	echo -e "${blue}${url}${normal}"
+	echo
+done
 
