@@ -54,13 +54,20 @@ def get_soup(idx: Iterable[str]) -> None:
 
         url = (categories[category] if not categories[category].startswith(
             'https://redbasset.tech') else categories[category] + category)
-        html = httpx.get(url).text
-        soup = LxmlSoup(html)
+        try:
+            html = httpx.get(url).text
+        except (httpx.ConnectTimeout, httpx.ConnectError):
+            continue
+            
+        try:
+            soup = LxmlSoup(html)
 
-        if category.startswith('EXT'):
-            get_name_and_url_redbasset(soup=soup)
-        else:
-            get_name_and_url_podbean(soup=soup)
+            if category.startswith('EXT'):
+                get_name_and_url_redbasset(soup=soup)
+            else:
+                get_name_and_url_podbean(soup=soup)
+        except AttributeError:
+            continue
 
 
 def curl_download(url: str) -> None:
