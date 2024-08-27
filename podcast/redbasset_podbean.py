@@ -58,7 +58,6 @@ def get_soup(idx: Iterable[str]) -> None:
             html = httpx.get(url).text
         except (httpx.ConnectTimeout, httpx.ConnectError):
             continue
-        
         try:
             soup = LxmlSoup(html)
 
