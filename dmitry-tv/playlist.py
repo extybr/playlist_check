@@ -14,12 +14,13 @@ def get_url() -> list:
         text = playlist.readlines()
         for number, line in enumerate(text):
             if line.startswith('http'):
-                text.insert(number, subprocess.getoutput(f'./tv.sh {text.pop(number)}') + '\n')
+                cmd = f'./tv.sh {text.pop(number)}'
+                text.insert(number, subprocess.getoutput(cmd) + '\n')
     return text
 
 
 def write_playlist() -> None:
-    global file         
+    global file
     with open(f'modified_{file}', 'a', encoding='utf-8') as playlist:
         text = get_url()
         for line in text:
