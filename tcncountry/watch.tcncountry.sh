@@ -20,5 +20,30 @@ for item in {0..20}; do
     fi
   echo -e "TITLE: ${blue}${title}${normal}, URL: ${yellow}https://watch.tcncountry.net/p/${contentId}${normal}"
   fi
+  if [ "${title}" = 'TCN Live' ]
+  then live="${contentId}"
+  elif [ "${title}" = 'TCN Top 20 Countdown' ]
+  then top_countdown="${contentId}"
+  fi
+done
+
+live_playlist=$(curl -s "https://cdn.jwplayer.com/v2/playlists/${live}" | jq -r '.playlist.[0].sources.[0].file')
+echo "#EXTM3U
+#EXTINF:-1,TCN Live
+${live_playlist}" > playlist.m3u
+
+countdown=$(curl -s "https://cdn.jwplayer.com/v2/playlists/${top_countdown}")
+for top in {0..10}
+do
+top_title=$(echo "${countdown}" | jq -r ".playlist.[${top}].title")
+src=$(echo "${countdown}" | jq -r ".playlist.[${top}].sources")
+  for number in {0..7}
+  do
+  if [ $(echo "${countdown}" | jq -r ".playlist.[${top}].sources[${number}].height") = '1080' ]
+    then link=$(echo "${countdown}" | jq -r ".playlist.[${top}].sources.[${number}].file")
+  fi
+  done
+echo "#EXTINF:-1,${top_title}
+${link}" >> playlist.m3u
 done
 
