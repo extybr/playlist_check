@@ -5,26 +5,24 @@
 import sys
 import subprocess
 
-file = sys.argv[1]
+FILE = sys.argv[1]
 
 
 def get_url() -> list:
-    global file
-    with open(file, 'r', encoding='utf-8') as playlist:
-        text = playlist.readlines()
-        for number, line in enumerate(text):
-            if line.startswith('http'):
-                cmd = f'./tv.sh {text.pop(number)}'
-                text.insert(number, subprocess.getoutput(cmd) + '\n')
-    return text
-
+    with open(FILE, 'r', encoding='utf-8') as playlist:
+        return playlist.readlines()
+    
 
 def write_playlist() -> None:
-    global file
-    with open(f'modified_{file}', 'a', encoding='utf-8') as playlist:
-        text = get_url()
-        for line in text:
-            playlist.write(line)
+    text: list = get_url()
+    with open(f'modified_{FILE}', 'a', encoding='utf-8') as playlist:
+        for number, line in enumerate(text):
+            if line.startswith('http'):
+                cmd = f'./tv.sh {line.strip()}'
+                link = subprocess.getoutput(cmd)
+                if link.startswith('http'):
+                     playlist.write(f'{text[number - 1]}{link}\n')
+                     print(link)
 
 
 write_playlist()
