@@ -11,7 +11,7 @@ FILE = sys.argv[1]
 def get_url() -> list:
     with open(FILE, 'r', encoding='utf-8') as playlist:
         return playlist.readlines()
-    
+
 
 def write_playlist() -> None:
     text: list = get_url()
@@ -21,8 +21,8 @@ def write_playlist() -> None:
                 cmd = f'./tv.sh {line.strip()}'
                 link = subprocess.getoutput(cmd)
                 if link.startswith('http'):
-                     playlist.write(f'{text[number - 1]}{link}\n')
-                     print(link)
+                    playlist.write(f'{text[number - 1]}{link}\n')
+                    print(link)
 
 
 write_playlist()
