@@ -16,7 +16,8 @@ def get_url() -> list:
 def write_playlist() -> None:
     text: list = get_url()
     ignore = 'http://player.smotrim.ru/iframe/stream/live_id'
-    subprocess.run(f'echo "{text.pop(0).strip()}" > modified_{FILE}', shell=True)
+    subprocess.run(f'echo "{text.pop(0).strip()}" > modified_{FILE}', 
+                   shell=True)
     with open(f'modified_{FILE}', 'a', encoding='utf-8') as playlist:
         for number, line in enumerate(text):
             if line.startswith(ignore):
