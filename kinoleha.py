@@ -1,4 +1,4 @@
-from parser_site import main as site_parser
+from kinoleha.parser_site import main as site_parser
 
 # categories = ('vse-filmy', 'russkie', 'genre/priklyucheniya', '2023-god',
 #               'genre/komedii', 'top', 'genre/dokumentalqnyee')

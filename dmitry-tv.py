@@ -43,7 +43,7 @@ def local() -> None:
                 playlist.write(line)
 
 
-local()
-# online()
+# local()
+online()
 current_directory = Path().cwd().absolute()
 playlist_sort(current_directory)
