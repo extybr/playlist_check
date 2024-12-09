@@ -23,9 +23,9 @@ for page in ${list[@]}; do
   counter=0
   
   for item in $(echo "${title}"); do
-  
+
     echo -e "${item}\n${link[$counter]}\n"
-    echo "#EXTINF:-1, ${item}" >> playlist.m3u
+    echo "#EXTINF:-1, $(echo ${item} | sed 's/,/\&#44;/g ; s/\&#33;/!/g; s/\&#63;/?/g')" >> playlist.m3u
     echo "${link[$counter]}" >> playlist.m3u
     ((counter+=1))
     
