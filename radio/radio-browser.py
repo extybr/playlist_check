@@ -11,7 +11,7 @@ playlist = 'radio_playlist.m3u'
 request = requests.get(url)
 
 if request.status_code == 200:
-    js = request.json()      
+    js = request.json()
     with open(playlist, 'a', encoding='utf-8') as radio_playlist:
         radio_playlist.write('#EXTM3U\n')
         for line in js:
@@ -21,4 +21,3 @@ if request.status_code == 200:
             print(url)
             radio_playlist.write(f"#EXTINF:-1,{name}\n")
             radio_playlist.write(url + "\n")
-
