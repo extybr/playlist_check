@@ -2,9 +2,7 @@
 # $> ./local_playlist_location_modified.sh Playlist-05.m3u
 # $> ./local_playlist_location_modified.sh http://dmi3y-tv.ru/iptv/Playlist-05.m3u
 
-if [ "$#" -ne 1 ]; then
-  exit
-fi
+[ "$#" -ne 1 ] && exit
 
 URL="$1"
 SRC='loc'
