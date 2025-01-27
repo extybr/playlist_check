@@ -1,14 +1,35 @@
 #!/bin/bash
 # $> ./local_playlist_location_modified.sh Playlist-05.m3u
+# $> ./local_playlist_location_modified.sh http://dmi3y-tv.ru/iptv/Playlist-05.m3u
 
-echo > playlist.m3u
+if [ "$#" -ne 1 ]; then
+  exit
+fi
+
+URL="$1"
+SRC='loc'
+
+if [[ "${URL}" =~ http://dmi3y-tv ]]; then
+  URL=$(curl -s "${URL}")
+  header=$(echo "${URL}" | sed -n '1,+4p')
+  echo "${header}" > playlist.m3u
+  SRC="nonloc"
+elif [ -f "${URL}" ]; then
+  sed -n '1,+4p' "${URL}" > playlist.m3u
+else exit
+fi
+
 IFS=$'\n'
 while read line; do
   if [[ "$line" =~ http://dmi3y-tv ]]; then
-    result=$(curl -s --max-time 3 -v --location "$(echo "${line}" | sed 's/.$//')" 2>/dev/null | grep http)
+    result=$(curl -s --max-time 3 -v --location "${line:0:-1}" 2>/dev/null | grep http)
     echo "${result}" >> playlist.m3u
     echo "${result}"
   else echo "${line}" >> playlist.m3u
   fi
-done < "$1"
+done < <(if [ "${SRC}" = 'loc' ]; then
+         sed -n '6,$p' "${URL}"
+         elif [ "${SRC}" = 'nonloc' ]; then
+         echo "${URL}" | sed -n '6,$p'
+         fi)
 
