@@ -1,9 +1,17 @@
 #!/usr/bin/python3
 import requests
+import re
 
-uid = 'uWDtYXqVMDM5JEywiksVg'
-dst = f"https://www.fashiontv.com/_next/data/{uid}/index.json"
+url_tv = 'https://www.fashiontv.com'
 file = 'fashion_playlist.m3u'
+       
+pattern = r"/_next/static/.{21}/_buildManifest.js"
+
+text = requests.get(url_tv).text
+
+uid = re.compile(pattern).findall(text)[0][14:-18]
+
+dst = f"{url_tv}/_next/data/{uid}/index.json"
 
 request = requests.get(dst).json()
 
