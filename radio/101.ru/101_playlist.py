@@ -15,7 +15,8 @@ with open(file, 'a', encoding='utf-8') as playlist:
         result = request.get("result", {})
         if result:
             title = result[0].get("titleChannel", {})
-            url = result[0].get("urlStream", {})[:60]
-            url = url[:url.index('?')].replace('http:', 'https:')
+            url = result[0].get("urlStream", {}).replace('http:', 'https:')
+            if url.count('?'):
+                url = url[:60][:url.index('?')]
             print(f'{title}\n{url}\n')
             playlist.write(f"#EXTINF:-1,{title}\n{url}\n")
