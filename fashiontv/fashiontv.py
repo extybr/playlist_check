@@ -15,7 +15,7 @@ celeb = page_props.get("videos", {})
 first_video = page_props.get("homeContainer", {}).get("firstVideo", {})
 title_stream = first_video.get("title", {})
 first_video_url = first_video.get("streamURL", {})
-url_stream = requests.get(first_video_url).text.split()[-1]
+url_stream = first_video_url[:first_video_url.index('[')]
 
 youtube_ftv = 'https://www.youtube.com/@ftv'
 
