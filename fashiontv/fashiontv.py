@@ -4,7 +4,7 @@ import re
 
 url_tv = 'https://www.fashiontv.com'
 file = 'fashion_playlist.m3u'
-       
+
 pattern = r"/_next/static/.{21}/_buildManifest.js"
 
 text = requests.get(url_tv).text
