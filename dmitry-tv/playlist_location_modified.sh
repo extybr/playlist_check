@@ -31,3 +31,5 @@ done < <(if [ "${SRC}" = 'loc' ]; then
          echo "${URL}" | sed -n '6,$p'
          fi)
 
+sed '/cdn\.ngenix\.net/{N;d;}' playlist.m3u
+
