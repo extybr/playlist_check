@@ -3,15 +3,14 @@ import aiofiles
 from aiohttp import ClientSession, client_exceptions
 
 PL = dict()
-playlist = []
+PLAYLIST = []
 
 
 async def fetch(session: ClientSession, url: str) -> None:
     try:
         async with session.get(url, timeout=3) as response:
             if response.status == 200:
-                global playlist
-                playlist.append(url)
+                PLAYLIST.append(url)
                 # print(url, response.status)
     except (client_exceptions.ClientConnectorError, asyncio.TimeoutError):
         pass
@@ -44,11 +43,10 @@ async def main() -> None:
 
 
 async def make_new_playlist() -> None:
-    global playlist
     async with aiofiles.open(
             'new_playlist.m3u', 'a', encoding='utf-8'
     ) as new_playlist:
-        for i in playlist:
+        for i in PLAYLIST:
             await new_playlist.write(i + '\n')
 
 
