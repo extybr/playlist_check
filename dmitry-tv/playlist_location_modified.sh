@@ -1,6 +1,6 @@
 #!/bin/bash
-# $> ./local_playlist_location_modified.sh Playlist-05.m3u
-# $> ./local_playlist_location_modified.sh http://dmi3y-tv.ru/iptv/Playlist-05.m3u
+# $> ./playlist_location_modified.sh Playlist-05.m3u
+# $> ./playlist_location_modified.sh http://dmi3y-tv.ru/iptv/Playlist-05.m3u
 
 [ "$#" -ne 1 ] && exit
 
@@ -31,5 +31,5 @@ done < <(if [ "${SRC}" = 'loc' ]; then
          echo "${URL}" | sed -n '6,$p'
          fi)
 
-sed '/cdn\.ngenix\.net/{N;d;}' playlist.m3u
+sed -i '/cdn\.ngenix\.net/{N;d;}' playlist.m3u
 

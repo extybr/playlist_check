@@ -1,8 +1,8 @@
-.gitignore
 __pycache__/
-venv/
+.venv/
 .idea/
 build/
 .git
 dist/
 .mypy_cache/
+.gitignore
