@@ -6,4 +6,6 @@ build/
 dist/
 .mypy_cache/
 .gitignore
-alensat/cookie.txt
+alensat/*.txt
+alensat/*.m3u
+alensat/*.log
