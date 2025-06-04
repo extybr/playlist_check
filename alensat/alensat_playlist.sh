@@ -4,7 +4,7 @@
 
 source secret.txt  # содержит LOGIN и PASSWORD
 PROXY="127.0.0.1:10808"
-USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:138.0) Gecko/20100101 Firefox/138.0"
+USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0"
 URL="https://alensat.com"
 LOGIN_URL="${URL}/ucp.php?mode=login"
 COOKIE_FILE="cookie.txt"
@@ -173,11 +173,21 @@ elif [[ -z "$cookie_time_expires" || "$cookie_time_expires" -lt "$now_time" || $
 fi
 
 # === Запуск основного действия ===
+try_login_and_run() {
+  if [[ $(check_cookie) == "✅" ]]; then
+    echo "✅ Куки валидны — пользователь авторизован."
+    make_playlist
+  else
+    echo "🔁 Пытаемся авторизоваться..."
+    get_cookie
+    if [[ $(check_cookie) == "✅" ]]; then
+      echo "✅ Куки валидны — пользователь авторизован."
+      make_playlist
+    else
+      echo -e "⚠️ Невозможно подтвердить авторизацию. Проверь вручную: $URL"
+    fi
+  fi
+}
 
-if [[ $(check_cookie) == "✅" ]]; then
-  echo "✅ Куки валидны — пользователь авторизован."
-  make_playlist
-else
-  echo "⚠️ Невозможно подтвердить авторизацию. Проверь вручную: $URL"
-fi
+try_login_and_run
 
