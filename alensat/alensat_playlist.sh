@@ -3,7 +3,7 @@
 # alensat.com | Скачивание и генерация плейлистов
 
 source secret.txt  # содержит LOGIN и PASSWORD
-PROXY="127.0.0.1:10808"
+PROXY="127.0.0.1:1080"
 USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0"
 URL="https://alensat.com"
 LOGIN_URL="${URL}/ucp.php?mode=login"
