@@ -57,8 +57,8 @@ function get_cookie() {
     --fail \
     --trace-ascii "$LOG_FILE")  || { echo "Ошибка получения страницы логина"; exit 1; }
     
-  form_token=$(echo "$html" | grep -oP 'name="form_token"\s+value="\K[^"]+')
-  creation_time=$(echo "$html" | grep -oP 'name="creation_time"\s+value="\K[^"]+')
+  form_token=$(echo "$html" | grep -m 1 -oP 'name="form_token"\s+value="\K[^"]+')
+  creation_time=$(echo "$html" | grep -m 1 -oP 'name="creation_time"\s+value="\K[^"]+')
   sid=$(echo "$html" | grep -oP 'name="sid"\s+value="\K[^"]+')
 
   echo "Token: $form_token"
