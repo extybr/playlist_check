@@ -91,5 +91,5 @@ if __name__ == "__main__":
         curl_download(my_link)
     else:
         get_soup(redbasset)
-        print('\n*************\n')
-        get_soup(podbean)
+        # print('\n*************\n')
+        # get_soup(podbean)
