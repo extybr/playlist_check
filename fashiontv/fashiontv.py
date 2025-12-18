@@ -7,13 +7,21 @@ file = 'fashion_playlist.m3u'
 
 pattern = r"/_next/static/.{21}/_buildManifest.js"
 
-text = requests.get(url_tv).text
+proxies = {
+    'http': 'http://127.0.0.1:1080',
+    'https': 'http://127.0.0.1:1080'
+}
+
+headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+
+text = requests.get(url_tv, proxies=proxies, headers=headers).text
 
 uid = re.compile(pattern).findall(text)[0][14:-18]
 
 dst = f"{url_tv}/_next/data/{uid}/index.json"
+# dst = 'https://www.fashiontv.com/_next/data/kAsmzu-sRV1kY8D5mucPw/index.json'
 
-request = requests.get(dst).json()
+request = requests.get(dst, proxies=proxies, headers=headers).json()
 
 page_props = request.get('pageProps', {})
 props = request.get('props', {})
@@ -23,7 +31,7 @@ celeb = page_props.get("videos", {})
 first_video = page_props.get("homeContainer", {}).get("firstVideo", {})
 title_stream = first_video.get("title", {})
 first_video_url = first_video.get("streamURL", {})
-url_stream = first_video_url[:first_video_url.index('[')]
+url_stream = first_video_url  #[:first_video_url.index('[')]
 
 youtube_ftv = 'https://www.youtube.com/@ftv'
 
