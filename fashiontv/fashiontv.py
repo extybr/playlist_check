@@ -12,7 +12,7 @@ proxies = {
     'https': 'http://127.0.0.1:1080'
 }
 
-headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+headers = {'User-Agent': 'Mozilla/5.0 (Linux; Android 14) Chrome/120.0.60.210'}
 
 text = requests.get(url_tv, proxies=proxies, headers=headers).text
 
@@ -31,7 +31,8 @@ celeb = page_props.get("videos", {})
 first_video = page_props.get("homeContainer", {}).get("firstVideo", {})
 title_stream = first_video.get("title", {})
 first_video_url = first_video.get("streamURL", {})
-url_stream = first_video_url  #[:first_video_url.index('[')]
+# url_stream = first_video_url[:first_video_url.index('[')]
+url_stream = first_video_url
 
 youtube_ftv = 'https://www.youtube.com/@ftv'
 
