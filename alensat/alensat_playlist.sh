@@ -1,10 +1,15 @@
 #!/bin/bash
-# $> ./alensat_playlist.sh --force-login music 500
+# $> ./alensat_playlist.sh --force-login music 500  # музыкальный плейлист с принудительным перелогиневанием
+# $> ./alensat_playlist.sh movies 500  # плейлист с фильмами с 500 страницы
+# $> ./alensat_playlist.sh hd 100  # плейлист с hd ...
+# $> ./alensat_playlist.sh sport 200  # спортивный плейлист
+# $> ./alensat_playlist.sh discovery 200  # discovery плейлист
+# $> ./alensat_playlist.sh sup 500  # плейлист из плейлистов
 # alensat.com | Скачивание и генерация плейлистов
 
 source secret.txt  # содержит LOGIN и PASSWORD
 PROXY="127.0.0.1:1080"
-USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0"
+USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0"
 URL="https://alensat.com"
 LOGIN_URL="${URL}/ucp.php?mode=login"
 COOKIE_FILE="cookie.txt"
@@ -156,7 +161,7 @@ make_playlist() {
   echo -e "\033[00;35mСгенерирован файл: \033[00;36m${playlist}"
   echo -e "\033[00;35mПоследняя страница: \033[00;36m${last_page}\033[0m"
   
-  smplayer "${playlist}"
+  smplayer "${playlist}" &>/dev/null
 }
 
 # === Авторизация, если требуется ===
