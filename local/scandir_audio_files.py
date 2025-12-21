@@ -15,7 +15,7 @@ def search(path: Path) -> None:
             search(folder)
         for ext in exts:
             if str(folder).endswith(ext):
-                with open(file='playlist.m3u', 
+                with open(file='playlist.m3u',
                           mode='a', encoding='utf-8') as playlist:
                     playlist.write(str(folder) + '\n')
 
