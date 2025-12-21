@@ -1,4 +1,4 @@
-from pack import httpx
+import httpx
 
 URL = 'https://archive.rucast.net/radio-t/media/'
 

@@ -1,7 +1,6 @@
 import asyncio
 import aiofiles
 from aiohttp import ClientSession
-from sort.sort_playlist import main as sort, Path
 
 
 def read_file(file: str) -> set:
@@ -44,5 +43,3 @@ async def main(urls: set) -> None:
 file_path = 'film.m3u'
 links = read_file(file_path)
 asyncio.run(main(links))
-current_path = Path().cwd().absolute()
-sort(current_path)

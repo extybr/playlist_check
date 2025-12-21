@@ -139,8 +139,16 @@ make_playlist() {
   last_page=$(request "$target" | grep -oP 'role="button"[^<]+' | grep -Eo '[0-9]+' | sort -n | tail -1)
   dev="&start=$(( (PAGE - 1) * 10 ))"
 
-  if [[ "$target" = "${targets[sup]}" ]]; then
-    request "${target}${dev}" | grep -oP 'http://[^"<> ]+\.(m3u8|m3u)\b' | uniq >> "$playlist"
+  if [[ "$target" = "${targets[sup]}" ]]; then 
+    result=$(request "${target}${dev}" | tr '\n' ' ')
+
+    {
+    echo "$result" | grep -oP 'http://[^"<> ]+\.(m3u8|m3u)\b'
+    echo "$result" | grep -oP 'spoilwrapper[^>]*>.*?<pre><code>\Khttps?://[^<]+(?=</code></pre>)'
+    echo "$result" | grep -oP 'spoilcontent[^>]*>\s*<a[^>]+>\K[^<]+(?=</a>)'
+    echo "$result" | grep -oP 'Hidden Content[^<]*</div>\s*<div[^>]*>\s*<a[^>]+>\K[^<]+(?=</a>)'
+    } | sed 's/amp;//g' | uniq >> "$playlist"
+
   else
     request "${target}${dev}" | grep -oP '(#EXTINF|http://)[^<]+' | awk '
       /^#EXTINF/ {

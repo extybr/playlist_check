@@ -1,10 +1,12 @@
+# http://a0925677.xsph.ru
+# dmi3y-tv.ru -> a0925677.xsph.ru
+
 import httpx
-from sort.sort_playlist import main as playlist_sort, Path
 
 
 def online() -> None:
-    film = 'http://dmi3y-tv.ru/iptv/film.m3u'
-    mult = 'http://dmi3y-tv.ru/iptv/multfilm.m3u'
+    film = 'http://a0925677.xsph.ru/iptv/film.m3u'
+    mult = 'http://a0925677.xsph.ru/iptv/multfilm.m3u'
     group = (film, mult)
 
     for i in group:
@@ -45,5 +47,3 @@ def local() -> None:
 
 # local()
 online()
-current_directory = Path().cwd().absolute()
-playlist_sort(current_directory)

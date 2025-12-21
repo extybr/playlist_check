@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+# Применяется в playlist.py
+# Прямые ссылки для vgtrk
 
 get_link() {
 request=$(curl -s "${url}" 2> /dev/null | grep 'vgtrk' 2> /dev/null)

@@ -1,14 +1,15 @@
 import asyncio
 import aiofiles
-from aiohttp import ClientSession, client_exceptions
+from aiohttp import ClientSession, client_exceptions, ClientTimeout
 
 PL = dict()
 PLAYLIST = []
+FILE = 'playlist.m3u'
 
 
 async def fetch(session: ClientSession, url: str) -> None:
     try:
-        async with session.get(url, timeout=3) as response:
+        async with session.get(url, timeout=ClientTimeout(total=3)) as response:
             if response.status == 200:
                 PLAYLIST.append(url)
                 # print(url, response.status)
@@ -19,8 +20,7 @@ async def fetch(session: ClientSession, url: str) -> None:
 
 
 async def gen_dict() -> None:
-    file = 'playlist.m3u'
-    async with aiofiles.open(file, 'r', encoding='utf-8') as play_list:
+    async with aiofiles.open(FILE, 'r', encoding='utf-8') as play_list:
         play = await play_list.readlines()
         for number, line in enumerate(play, 1):
             if line.strip():
@@ -32,7 +32,7 @@ async def main() -> None:
         urls = []
         task3 = asyncio.create_task(gen_dict())
         await asyncio.gather(task3)
-        for key, value in PL.items():
+        for _, value in PL.items():
             if value.startswith('http'):
                 urls.append(value.strip())
         tasks = [asyncio.create_task(
@@ -44,7 +44,7 @@ async def main() -> None:
 
 async def make_new_playlist() -> None:
     async with aiofiles.open(
-            'new_playlist.m3u', 'a', encoding='utf-8'
+            f'new_{FILE}', 'a', encoding='utf-8'
     ) as new_playlist:
         for i in PLAYLIST:
             await new_playlist.write(i + '\n')

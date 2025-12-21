@@ -1,11 +1,14 @@
+.gitignore
 __pycache__/
 .venv/
 .idea/
 build/
 .git
 dist/
-.mypy_cache/
-.gitignore
+pyproject.toml
+pyrightconfig.json
+uv.lock
+.python-version
 alensat/*.txt
 alensat/*.m3u
 alensat/*.log

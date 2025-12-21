@@ -1,5 +1,5 @@
 #!/bin/bash
-# $> ./films.m3u-update.sh
+# $> ./dimonovich_films.m3u-update.sh
 # Обновление плейлиста FILMS.m3u (https://github.com/Dimonovich/TV)
 
 USER_REPO='Dimonovich/TV'

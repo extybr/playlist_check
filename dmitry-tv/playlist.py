@@ -1,10 +1,11 @@
-####################################
-# python playlist.py playlist.m3u  #
-####################################
+# $> python playlist.py playlist.m3u
+# Модифицирует ссылки
 
 import sys
 import subprocess
 
+if len(sys.argv) != 2:
+    exit(0)
 FILE = sys.argv[1]
 
 
