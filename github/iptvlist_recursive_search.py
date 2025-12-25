@@ -19,6 +19,7 @@ RATE_LIMIT_HIT = False
 
 def response(url: str) -> Optional[str]:
     """HTTP запрос с обработкой ошибок и таймаутом"""
+    global RATE_LIMIT_HIT
     headers = {'User-Agent': 'Mozilla/5.0'}
     try:
         time.sleep(REQUEST_DELAY)  # Задержка для соблюдения rate limits
