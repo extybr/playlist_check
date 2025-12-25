@@ -1,10 +1,12 @@
 #!/usr/bin/python3
+# https://gitlab.com/radiobrowser
+# [ de1 || de2 || fi1 ] *.api.radio-browser.info
 
 import requests
 
-# url = "https://de1.api.radio-browser.info/json/stations/bycountry/us"
 url = "https://de1.api.radio-browser.info/json/stations/topvote"
 # url = "https://de1.api.radio-browser.info/json/stations"
+# url = "https://de1.api.radio-browser.info/json/stations/bycountry/us"
 
 playlist = 'radio_playlist.m3u'
 

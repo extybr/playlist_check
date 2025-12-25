@@ -1,11 +1,7 @@
+# $> python comparison.py old_file.m3u new_file.m3u
+
 import sys
 from pathlib import Path
-
-"""
-old_file = 'old_file.m3u'
-new_file = 'new_file.m3u'
-# > python comparison.py old_file.m3u new_file.m3u
-"""
 
 old_file = sys.argv[1]
 new_file = sys.argv[2]

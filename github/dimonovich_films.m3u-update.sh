@@ -8,8 +8,7 @@ GIT_PATH='Dimonovich/FREE'
 FILMS="${SAMSUNG_DIRECTORY}/Desktop/Radio/${REPO_FILE}"
 
 if [ ! -f "$FILMS" ]; then
-  exit
-  # touch "$FILMS"
+  FILMS="./${REPO_FILE}"
 fi
 
 check_date() {
@@ -24,7 +23,9 @@ check_date() {
   # timestamp даты коммита
   git_ts=$(date -d "${gitfile_date}" +"%s")
   # дата изменения локального файла
-  file_date=$(stat "${FILMS}" | grep 'Модифицирован' | awk '{print $2}')
+  file_date=$(stat "${FILMS}" 2>/dev/null | grep 'Модифицирован' | awk '{print $2}')
+  # если файла нет, то выходим из функции и создаем плейлист
+  if ! [[ "$file_date" ]]; then return 0; fi
   # timestamp локального файла
   file_ts=$(date -d "${file_date}" +"%s")
   # сравниваем timestamp
