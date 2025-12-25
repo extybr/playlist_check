@@ -41,8 +41,6 @@ def response(url: str) -> Optional[str]:
 
 def search_playlists(raw_data: List[dict]) -> None:
     """Рекурсивный поиск плейлистов в структуре GitHub"""
-    global RATE_LIMIT_HIT
-
     # Проверка в начале функции флага превышения лимита запросов
     if RATE_LIMIT_HIT:
         return  # Просто выходим из рекурсии
