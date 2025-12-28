@@ -6,7 +6,6 @@
 declare -a USER_REPO LIST_DOWNLOAD
 
 USER_REPO=(
-ChiSheng9/iptv
 ipstreet312/freeiptv
 Dimonovich/TV
 loganettv/playlists
@@ -14,6 +13,10 @@ Spirt007/Tvru
 Rafail1082GitHUB/rafail1982.ru
 smolnp/IPTVru
 Free-TV/IPTV
+VokkaOnline/VokkaPlaylist
+redmi9cnfc/TV
+NoviyKanal/iptvm3u
+Spirt007/Tvru
 )
 
 LIST_DOWNLOAD=()
@@ -24,17 +27,15 @@ for list in "${USER_REPO[@]}"; do
   # выводим список: имя файла - ссылка для скачивания
   echo -e "$name_url\n"
   # сохраняем список ссылок для скачивания
-  LIST_DOWNLOAD+=$(echo "${name_url}" | grep -E "^https://raw")
+  mapfile -t links <<< "$(echo "$name_url" | grep -E "^https://raw")"
+  LIST_DOWNLOAD+=("${links[@]}")
 done
-
-LIST_DOWNLOAD=$(echo $LIST_DOWNLOAD | sed "s/ /\\n/g")  # удаляем пробел между списками
 
 mkdir playlists && cd playlists  # создаем папку для скачивания плейлистов
 
 # скачиваем полученный список плейлистов
-while read url; do
-  curl -O "$url"
-done <<< "$LIST_DOWNLOAD"
-
-cd ..  # выход из папки
+for url in "${LIST_DOWNLOAD[@]}"; do
+  wget "$url"
+  sleep 0.5
+done
 
