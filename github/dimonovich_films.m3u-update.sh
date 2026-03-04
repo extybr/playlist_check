@@ -41,6 +41,10 @@ if check_date; then
     echo "${m3u}" | \
     sed '1p; /#EXTINF:-1 group-title="Новинки кино/,$!d ; /^[[:space:]]*$/{N;/\n[[:space:]]*$/D}' > "${FILMS}"
     # sed -i "2i\#EXTINF:-1,         \n$HOME/Видео/Заглушка.mp4" "$films"
+    
+    # копируем и ставим group-title в конце названия
+    sed -i 's/[[:space:]]*$//; s/^#EXTINF:.*group-title="\([^"]*\)".*/& [\1]/' "${FILMS}"
+    
     echo -e "   >> \e[32mПлейлист обновлен\e[0m <<"
   fi
 else echo -e "   >> \e[31mПлейлист не нуждается в обновлении\e[0m <<"
