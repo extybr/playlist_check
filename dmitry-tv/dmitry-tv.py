@@ -1,12 +1,12 @@
-# http://a0925677.xsph.ru
-# dmi3y-tv.ru -> a0925677.xsph.ru
+# http://dmi3y-tv6.ru
+# dmi3y-tv.ru
 
 import httpx
 
 
 def online() -> None:
-    film = 'http://a0925677.xsph.ru/iptv/film.m3u'
-    mult = 'http://a0925677.xsph.ru/iptv/multfilm.m3u'
+    film = 'http://dmi3y-tv6.ru/d-tv/playlist/film.m3u'
+    mult = 'http://dmi3y-tv6.ru/d-tv/playlist/multfilm.m3u'
     group = (film, mult)
 
     for i in group:
