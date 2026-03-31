@@ -2,17 +2,25 @@
 # $> ./101_playlist_without_jq.sh
 # WARNING: worst option, without jq 
 
-url='https://101.ru/api/channel/getServers/'
-
 echo '#EXTM3U' > 101_playlist.m3u
 
-for i in {1..10}; do
-  response=$(curl -s "https://101.ru/api/channel/getServers/$i")
-  title=($(echo "${response}" | grep -oP 'titleChannel[^.]+.'))
-  a=$(echo "${title[1]}" | iconv -t utf8 | sed 's/titleChannel":"//g ; s/.$//')
-  url=($(echo "${response}" | grep -oP 'urlStream[^\?]+\?'))
-  b=$(echo "${url[1]//\\/}" | sed 's/urlStream":"//g ; s/.$//')
-  echo -e "${a}\n${b}"
-  echo -e "#EXTINF:-1,${a}\n${b}" >> 101_playlist.m3u
-done
+url_decode() {
+    : "${1//+/ }"
+    printf '%b\n' "${_//%/\\x}"
+}
 
+for page in {1..10}; do
+  curl -s "https://101.ru/api/channel/getServers/$page" | \
+  grep -oP '"(titleChannel|urlStream)":\K[^,]+' | \
+  tail -2 | \
+  while IFS= read -r line; do
+    decoded=$(url_decode "$line" | sed 's/\\//g ; s/"//g')
+    if [ -n "$decoded" ]; then
+      if [[ "$decoded" =~ ^http:// ]]; then
+        echo "$decoded"
+      else
+        echo "#EXTINF:-1,$decoded"
+      fi
+    fi
+  done >> 101_playlist.m3u
+done
