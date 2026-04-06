@@ -9,9 +9,8 @@ normal='\e[0m'
 
 html=$(curl -s 'http://feeds.rucast.net/radio-t')
 
-urls=($(echo "${html}" | grep -oP 'url="http://cdn.radio-t.com[^>]+'))
-url=$(echo "${urls[0]}" | sed 's/url="//g ; s/"\///g')
-real_url=$(curl -s -I "${url}" | grep 'Location:' | sed 's/Location: //g')
+url=$(echo "${html}" | grep -oP 'url="http[^>]+' \
+     | head -n 1 | sed 's/url="//g ; s/"\///g')
 
 themes=$(echo "${html}" | grep -oP '<itunes:subtitle>[^>]+')
 IFS=$'\n'
@@ -26,5 +25,5 @@ for theme in $(echo "${themes}"); do
   fi
 done
 
-echo -e "${blue}${real_url}${normal}"
+echo -e "${blue}${url}${normal}"
 

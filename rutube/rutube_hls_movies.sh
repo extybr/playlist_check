@@ -17,12 +17,12 @@ curl -s --location -A "$user_agent" "$rutube_url" | \
 grep -o 'https://rutube.ru/video/[a-z0-9]\{32\}/' | \
 sed 's/video/api\/play\/options/g' | \
 sort -u | while read url; do
-  api_url=$(curl -s "$url")
+  api_url=$(curl -s -A "$user_agent" "$url")
   if [[ "$api_url" ]]; then
     echo "$api_url" | jq -r '"#EXTINF:-1, " + .title' >> "$playlist"
     echo "$api_url" | jq -r '.title'
-    direct_link=$(echo "$api_url" | yq -r '.video_balancer.m3u8')
-    curl -s "$direct_link" | tail -n 1 >> "$playlist"
+    direct_link=$(echo "$api_url" | jq -r '.video_balancer.m3u8')
+    curl -s -A "$user_agent" "$direct_link" | tail -n 1 >> "$playlist"
   fi
 done
 
