@@ -1,5 +1,5 @@
 #!/bin/env python3
-# Сортировка плейлиста (по алфавиту), в переданном плейлисте только название и 
+# Сортировка плейлиста (по алфавиту), в переданном плейлисте только название и
 # путь к файлу (без пустых строк и строк комментариев).
 # Повторы не удаляет.
 
@@ -7,7 +7,7 @@ def get_list_playlist(pl: str) -> list:
     with open(file=pl, mode='r') as text:
         lines = text.readlines()
         name = [i.strip() for i in lines if i.startswith('#EXTINF')]
-        path = [i.strip() for i in lines if not i.startswith('#EXTINF')] 
+        path = [i.strip() for i in lines if not i.startswith('#EXTINF')]
     return list(zip(path, name))
 
 
