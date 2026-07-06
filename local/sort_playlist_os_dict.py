@@ -1,8 +1,8 @@
 # Сортировка плейлиста (по алфавиту), в переданном плейлисте только название и
 # путь к файлу (без пустых строк и строк комментариев).
 # Повторы удаляет.
+import os
 import sys
-from pathlib import Path
 
 
 def get_dictionary(_filename: str) -> dict:
@@ -20,8 +20,8 @@ def get_dictionary(_filename: str) -> dict:
     return dictionary
 
 
-def sorted_and_write(_file: str, _cwd: Path) -> None:
-    new_filename_path = _cwd / f'sorted-{_file}'
+def sorted_and_write(_file: str, _cwd: str) -> None:
+    new_filename_path =  f'{_cwd}/sorted-{_file}'
     new_dictionary = dict()
     _dictionary = get_dictionary(_file)
     new = sorted(_dictionary)
@@ -33,17 +33,19 @@ def sorted_and_write(_file: str, _cwd: Path) -> None:
             text.write(value[0] + value[1])
 
 
-def main(cwd: Path, ext: str) -> None:
-    for file in Path(cwd).iterdir():
-        if str(file.name).endswith(ext):
-            print(f'найден файл: {file.name}')
-            filename = str(file.name)
-            sorted_and_write(filename, cwd)
+def main(cwd: str, ext: str) -> None:
+    for _, _, files in os.walk(cwd):
+        for file in files:
+            if file.endswith(ext):
+                print(f'найден файл: {file}')
+                sorted_and_write(file, cwd)
 
 
 extension = 'm3u8'
 if len(sys.argv) == 2:
     my_path = sys.argv[1]
-    main(Path(my_path), extension)
+    if not (os.path.exists(my_path) and os.path.isdir(my_path)):
+        exit('путь не найден')
+    main(my_path, extension)
 else:
     exit('не передан путь')
