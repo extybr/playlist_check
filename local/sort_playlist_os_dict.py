@@ -21,7 +21,7 @@ def get_dictionary(_filename: str) -> dict:
 
 
 def sorted_and_write(_file: str, _cwd: str) -> None:
-    new_filename_path =  f'{_cwd}/sorted-{_file}'
+    new_filename_path = f'{_cwd}/sorted-{_file}'
     new_dictionary = dict()
     _dictionary = get_dictionary(_file)
     new = sorted(_dictionary)
