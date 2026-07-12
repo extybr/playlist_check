@@ -1,3 +1,5 @@
+#!/bin/env python3
+# ./sort_playlist_os_dict.py /path/playlist.m3u
 # Сортировка плейлиста (по алфавиту), в переданном плейлисте только название и
 # путь к файлу (без пустых строк и строк комментариев).
 # Повторы удаляет.
@@ -5,27 +7,26 @@ import os
 import sys
 
 
-def get_dictionary(_filename: str) -> dict:
+def get_dictionary(playlist_path: str) -> dict:
     dictionary = dict()
-    with open(_filename, 'r', encoding='utf-8') as text:
-        txt = text.readlines()
+    with open(playlist_path, 'r', encoding='utf-8') as text:
         name = ''
-        for line in txt:
+        for line in text.readlines():
             if line.startswith('#EXTINF'):
                 name = line
             else:
-                address = line
-                film = name.split(',')[-1]
-                dictionary[film] = name, address
+                path = line
+                title = name.split(',')[-1]
+                dictionary[title] = name, path
     return dictionary
 
 
-def sorted_and_write(_file: str, _cwd: str) -> None:
-    new_filename_path = f'{_cwd}/sorted-{_file}'
+def sorted_and_write(filename_path: str) -> None:
+    new_filename_path = f'{filename_path}_sorted.m3u'
     new_dictionary = dict()
-    _dictionary = get_dictionary(_file)
-    new = sorted(_dictionary)
-    for key in new:
+    _dictionary = get_dictionary(filename_path)
+    sort_dictionary = sorted(_dictionary)
+    for key in sort_dictionary:
         new_dictionary[key] = _dictionary[key]
     with open(new_filename_path, 'a', encoding='utf-8') as text:
         text.write('#EXTM3U\n')
@@ -33,19 +34,10 @@ def sorted_and_write(_file: str, _cwd: str) -> None:
             text.write(value[0] + value[1])
 
 
-def main(cwd: str, ext: str) -> None:
-    for _, _, files in os.walk(cwd):
-        for file in files:
-            if file.endswith(ext):
-                print(f'найден файл: {file}')
-                sorted_and_write(file, cwd)
-
-
-extension = 'm3u8'
 if len(sys.argv) == 2:
-    my_path = sys.argv[1]
-    if not (os.path.exists(my_path) and os.path.isdir(my_path)):
+    full_path = sys.argv[1]
+    if not (os.path.exists(full_path) and os.path.isfile(full_path)):
         exit('путь не найден')
-    main(my_path, extension)
+    sorted_and_write(full_path)
 else:
     exit('не передан путь')
