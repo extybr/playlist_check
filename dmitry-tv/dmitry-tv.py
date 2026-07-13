@@ -5,8 +5,8 @@ import httpx
 
 
 def online() -> None:
-    film = 'http://dmi3y-tv6.ru/d-tv/playlist/film.m3u'
-    mult = 'http://dmi3y-tv6.ru/d-tv/playlist/multfilm.m3u'
+    film = 'http://dmi3y-tv6.ru/iptv/film.m3u'
+    mult = 'http://dmi3y-tv6.ru/iptv/multfilm.m3u'
     group = (film, mult)
 
     for i in group:

@@ -1,8 +1,7 @@
 #!/bin/env python3
-# ./script.py /path/playlist.m3u
-# Сортировка плейлиста (по алфавиту), в переданном плейлисте только название и
-# путь к файлу (без пустых строк и строк комментариев).
-# Повторы не удаляет.
+# ./sort_playlist_list.py /path/playlist.m3u
+# Сортировка плейлиста (по алфавиту).
+# Повторы не удаляет (удаляет - закомментированно).
 import os
 import sys
 
@@ -10,9 +9,15 @@ import sys
 def get_list_playlist(playlist: str) -> list:
     with open(file=playlist, mode='r') as text:
         lines = text.readlines()
-        letter = [i.split(',')[1][0] for i in lines if i.startswith('#EXTINF')]
+        for line in lines.copy():
+            if (line.startswith('#') and 
+                not line.startswith('#EXTINF')) or not line.strip():
+                lines.remove(line)
+        letter = [i.split(',')[1][0].lower() 
+                  for i in lines if i.startswith('#EXTINF')]
         name = [i.strip() for i in lines if i.startswith('#EXTINF')]
         path = [i.strip() for i in lines if not i.startswith('#EXTINF')]
+    # return sorted(list(set(list(zip(letter, path, name)))))  # удалит повторы
     return sorted(list(zip(letter, path, name)))
 
 
