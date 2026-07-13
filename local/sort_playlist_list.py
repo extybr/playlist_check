@@ -10,10 +10,10 @@ def get_list_playlist(playlist: str) -> list:
     with open(file=playlist, mode='r') as text:
         lines = text.readlines()
         for line in lines.copy():
-            if (line.startswith('#') and 
-                not line.startswith('#EXTINF')) or not line.strip():
+            if (line.startswith('#')
+                    and not line.startswith('#EXTINF')) or not line.strip():
                 lines.remove(line)
-        letter = [i.split(',')[1][0].lower() 
+        letter = [i.split(',')[1][0].lower()
                   for i in lines if i.startswith('#EXTINF')]
         name = [i.strip() for i in lines if i.startswith('#EXTINF')]
         path = [i.strip() for i in lines if not i.startswith('#EXTINF')]
