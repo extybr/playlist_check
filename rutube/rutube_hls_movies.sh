@@ -1,6 +1,7 @@
 #!/bin/bash -
 # $> ./rutube_hls_movies.sh
 # $> ./rutube_hls_movies.sh https://rutube.ru/plst/1298438
+# $> ./rutube_hls_movies.sh https://rutube.ru/video/2959f7a99504290930cc68951bd2f5ce
 # Прямые ссылки rutube.ru
 
 rutube_url='https://rutube.ru/feeds/movies/'

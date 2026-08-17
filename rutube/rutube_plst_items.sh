@@ -3,10 +3,14 @@
 # Сериал / сезон, серия (отсортированные по-порядку)
 
 if [ "$#" -eq 1 ] && [[ "$1" =~ ^('https://rutube.ru/plst/') ]]; then
-  ID_PLST="${1##*/}"
+  PLST="$1"
+  if [[ "$PLST" =~ '/'$ ]]; then
+    PLST="${1::-1}"
+  fi
+  ID_PLST="${PLST##*/}"
   PL="playlist_$ID_PLST.m3u8"
   echo "#EXTM3U" > "$PL"
-else echo "*** Нет ссылки ***" && exit 0
+else echo "*** Нет валидной ссылки ***" && exit 0
 fi
 
 results() {
