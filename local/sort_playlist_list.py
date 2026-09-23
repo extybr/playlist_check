@@ -25,7 +25,7 @@ def get_list_playlist(playlist: str, n: int = 0) -> list:
                         chs += ch
                 letter.append(int(chs))
         else:
-            letter = [i.split(',')[1][0].lower()
+            letter = [i.split(',')[1].strip()[0].lower()
                       for i in lines if i.startswith('#EXTINF')]
         name = [i.strip() for i in lines if i.startswith('#EXTINF')]
         path = [i.strip() for i in lines if not i.startswith('#EXTINF')]
