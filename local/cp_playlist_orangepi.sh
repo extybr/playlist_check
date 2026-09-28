@@ -24,9 +24,9 @@ import os
 import time
 
 try:
+    os.system(\"cd  /storage/videos && curl -O ${updplaylist}\")
     with open(\"/storage/.kodi/userdata/timestamp\", \"r\") as f:
-        if float(time.time()) - float(f.read()) > 400000:
-            os.system(\"cd  /storage/videos && curl -O ${updplaylist}\")
+        if float(time.time()) > float(f.read()) or (float(f.read()) - float(time.time()) < 100000):
             os.system(\"/storage/.kodi/userdata/${script_random} /storage/videos/${plretro}\")
 except Exception:
     pass

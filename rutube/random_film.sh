@@ -27,6 +27,12 @@ get_direct_link() {
       echo "$api_url" | sed -n 's/.*"title":"\([^"]*\)".*/\1/p' >> "$NEW_PLAYLIST"
       direct_link=$(echo "$api_url" | sed -n 's/.*"m3u8":"\([^"]*\)".*/\1/p' | sed 's/\\u0026/\&/g')
       curl -s -A "$USER_AGENT" "${direct_link}" | tail -n 1 >> "$NEW_PLAYLIST"
+      # повтор из-за багов kodi
+      echo -n "#EXTINF:-1, " >> "$NEW_PLAYLIST"
+      echo "$api_url" | sed -n 's/.*"title":"\([^"]*\)".*/\1/p' >> "$NEW_PLAYLIST"
+      curl -s -A "$USER_AGENT" "${direct_link}" | tail -n 1 >> "$NEW_PLAYLIST"
+      # date +%s > /storage/.kodi/userdata/timestamp  # дата истечения прямой ссылки
+      echo "${direct_link}" | sed -n 's/.*expire=\([^&]*\).*/\1/p' > /storage/.kodi/userdata/timestamp
     fi
   done
 }
