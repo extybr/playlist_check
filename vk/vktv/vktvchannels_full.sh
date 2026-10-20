@@ -36,4 +36,5 @@ curl -s "https://api.vkvideo.ru/method/catalog.getVideo?v=$API" \
   | jq -r '.response.videos[] | "#EXTINF:-1," + .title, .files.rtmp' \
   > "$OUT_FILE"
 
+echo -e "client_id=${client_id}\nclient_secret=${client_secret}\napp_id=${app_id}\n"
 echo "Готово: $OUT_FILE"
