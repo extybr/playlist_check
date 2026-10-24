@@ -1,7 +1,7 @@
 #!/bin/bash
 # $> ./ytdlp_rutube.sh https://rutube.ru/video/deedf3b5a0cc6a126200557512605952/
 # $> ./ytdlp_rutube.sh https://rutube.ru/live/video/c37cd74192c6bc3d6cd6077c0c4fd686/
-# парсинг ссылок с помощью yt-dlp
+# Парсинг прямых ссылок с помощью yt-dlp
 
 if [[ "$#" -ne 1 ]] || ! [[ "$1" =~ ^('https://rutube.ru/') ]]; then
   echo -e "*** \033[31mНет валидной ссылки\033[0m ***" && exit 1

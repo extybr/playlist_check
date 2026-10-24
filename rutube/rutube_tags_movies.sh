@@ -1,12 +1,14 @@
 #!/bin/bash -
 # $> ./rutube_tags_movies.sh
-# Ссылки rutube.ru
+# Плейлист непрямых ссылок на фильмы / ищет по https://rutube.ru/feeds/movies-serials/
 
+target='https://rutube.ru/feeds/movies-serials/'
+# target='https://rutube.ru/feeds/movies/'
 playlist='rutube_films.m3u'
-user_agent='Mozilla/5.0 (X11; Linux x86_64; rv:149.0) Gecko/20100101 Firefox/149.0'
+user_agent='Mozilla/5.0 (X11; Linux x86_64; rv:158.0) Gecko/20100101 Firefox/158.0'
 echo "#EXTM3U" > "$playlist"
 
-curl -s -A "$user_agent" 'https://rutube.ru/feeds/movies/' | \
+curl -s -A "$user_agent" "$target" | \
 grep -o 'https://rutube.ru/api/tags/video/[0-9]\{7\}/' | \
 sort -u | while read url; do 
   curl -s -A "$user_agent" "$url" | \

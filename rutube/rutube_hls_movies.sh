@@ -6,7 +6,7 @@
 # Прямые ссылки rutube.ru
 
 rutube_url='https://rutube.ru/feeds/movies/'
-user_agent='Mozilla/5.0 (X11; Linux x86_64; rv:149.0) Gecko/20100101 Firefox/149.0'
+user_agent='Mozilla/5.0 (X11; Linux x86_64; rv:158.0) Gecko/20100101 Firefox/158.0'
 
 if [ "$#" -eq 1 ]; then
   rutube_url="$1"
