@@ -6,16 +6,8 @@
 declare -a USER_REPO LIST_DOWNLOAD
 
 USER_REPO=(
-ipstreet312/freeiptv
 Dimonovich/TV
 loganettv/playlists
-Spirt007/Tvru
-Rafail1082GitHUB/rafail1982.ru
-smolnp/IPTVru
-Free-TV/IPTV
-VokkaOnline/VokkaPlaylist
-redmi9cnfc/TV
-NoviyKanal/iptvm3u
 Spirt007/Tvru
 )
 

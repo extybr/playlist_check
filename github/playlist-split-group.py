@@ -83,6 +83,8 @@ def main():
                 "\n\033[35mВыбрать цифру темы для создания плейлиста:\033[0m "))
         except ValueError:
             continue
+        except KeyboardInterrupt:
+            sys.exit(' \033[1;7;31mОТМЕНА\033[0m')
 
     select = groups[choice - 1]
     print(f'Выбрано: \033[36m{select}\033[0m')

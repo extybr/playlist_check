@@ -11,7 +11,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Optional
 from urllib.parse import urlparse
 
-USER_REPO = ['Paradise-91/ParaTV', 'LeBazarDeBryan/XTVZ_', 'iptv-org/iptv']
+USER_REPO = ['Paradise-91/ParaTV', 'Dimonovich/TV']
 DOWNLOAD_LIST = []
 REQUEST_DELAY = 1  # Задержка между запросами к API в секундах
 RATE_LIMIT_HIT = False
