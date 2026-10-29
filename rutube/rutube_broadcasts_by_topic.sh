@@ -13,6 +13,8 @@ request() {
   echo $RESULT | jq -r "$1"
 }
 
+MAX_PAGE=$(request ".results | length")
+
 if [ "$#" -eq 1 ] && [[ "$1" == "all" ]]; then
   # Все прямые эфиры / с непрямыми url-ссылками
   echo "#EXTM3U" > "all_$PLAYLIST"
@@ -22,9 +24,9 @@ fi
 
 # по тематикам
 echo "#EXTM3U" > "$PLAYLIST"
-for ch in {1..13}; do
+for ((ch=1; ch<MAX_PAGE; ch++)); do
   group_title=$(request ".results.[$ch].name")
-  request ".results.[$ch].childs.[] | \"#EXTINF:-1 group-title='${group_title}' tvg-logo='\" + .thumbnail_url + \"', \" + .title,.video_url" >> "$PLAYLIST"
+  request ".results.[$ch].childs.[] | \"#EXTINF:-1 group-title=\\\"${group_title}\\\" tvg-logo=\\\"\" + .thumbnail_url + \"\\\", \" + .title,.video_url" >> "$PLAYLIST"
 done
 
 # получение прямых ссылок с заменой
@@ -46,5 +48,5 @@ while read url; do
   fi
 done < "$PLAYLIST"
 
-echo "✅ Готово: $PLAYLIST"
+echo -e "\n✅ Готово: $PLAYLIST"
 
